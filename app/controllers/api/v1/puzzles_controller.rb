@@ -6,6 +6,19 @@ class Api::V1::PuzzlesController < ApplicationController
     render json: @puzzles
   end
 
+  def new
+    @puzzle = Puzzle.new
+  end
+
+  def create
+    @puzzle = Puzzle.new(puzzle_params)
+    if @puzzle.save
+      render json: @puzzle, status: :accepted
+    else
+      render json: { errors: @puzzle.errors.full_messages }, status: :unprocessible_entity
+    end
+  end
+
   def update
     @puzzle.update(puzzle_params)
     if @puzzle.save

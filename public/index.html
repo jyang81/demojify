@@ -2,13 +2,41 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Demojify - Emojigrams</title>
-    <script src="/src/main.js" charset="utf-8"></script>
-    <script src="/src/puzzle.js" charset="utf-8"></script>
+    <title>Demojify - Emoji Puzzles</title>
+    <script src="/src/users.js" charset="utf-8"></script>
+    <script src="/src/puzzles.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <h1>Demojify</h1>
+
+    <div id="splash">
+      <h3>Enter username to begin</h3>
+      <form id="user-form">
+        <input type="text" name="username" value="" required>
+        <input type="submit" name="submit" value="Enter">
+      </form>
+
+    </div>
+
+    <div class=""> <!-- Entire site: must enter username to unlock -->
+
+
+    <div class="container">
+      <form class="add-puzzle-form" style="">
+        <h3>Create an Emoji Puzzle!</h3>
+
+        <input type="text" name="clue" value="" placeholder="Use emojis to make a clue" class="input-text">
+        <br>
+        <input type="text" name="answer" value="" placeholder="Answer" class="input-text">
+        <br>
+        <input type="text" name="category" value="" placeholder="Category" class="input-text">
+        <br>
+        <input type="submit" name="submit" value="Submit Your Puzzle" class="submit" id="create-puzzle">
+      </form>
+    </div>
+    <p style='text-align:center'> 👀 <button id='new-puzzle-btn'>Create a Puzzle!</button> 👀 </p>
 
     Userlist:
     <ul id="users">
@@ -17,6 +45,8 @@
     Puzzles:
     <ul id="puzzles">
     </ul>
+
+  </div> <!-- Entire site -->
 
   </body>
 </html>
