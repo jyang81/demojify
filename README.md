@@ -24,7 +24,8 @@ Answer: Mr. Peanut
 
 #### MVP identified (CRUD):
 
-A user will be able to:	Create a puzzle
+A user will be able to:	
+* Create a puzzle
 * Update a puzzle
 * Delete a puzzle
 * Like a puzzle
