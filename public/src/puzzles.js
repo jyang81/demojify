@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  const URL = '/api/v1/puzzles'
+  const PUZZLE_URL = '/api/v1/puzzles'
+  const GUESS_URL = '/api/v1/guesses'
 
   function getPuzzles() {
-    fetch(URL)
+    fetch(PUZZLE_URL)
       .then(res => res.json())
       .then(puzzles => {
         console.log({
@@ -42,12 +43,57 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // add form field for guess
-    const guessBtn = document.createElement('button')
-    guessBtn.textContent = "Guess"
-    innerDiv.appendChild(guessBtn)
+    const form = document.createElement('form')
+    const input = document.createElement('input')
+    input.type = "text"
+    input.name = "guess"
+    input.placeholder = "Make a guess"
+    input.style.display = "block"
+    input.style.width = "15rem"
+    form.appendChild(input)
+
+    const br = document.createElement('br')
+    form.appendChild(br)
+
+    const guessBtn = document.createElement('input')
+    guessBtn.type = "submit"
+    guessBtn.value = "See Answer"
+    form.appendChild(guessBtn)
+
+    innerDiv.appendChild(form)
+    form.addEventListener('submit', (ev) => {
+      handleGuess(ev, puzzle)
+    })
     // when button clicked, it will show the answer + all the guesses and append the guess to the list
+
   }
 
+  function handleGuess(ev, puzzle){
+    ev.preventDefault()
+    console.log("guess:", ev.target.elements.guess.value)
+    let guess = ev.target.elements.guess.value
+    console.log("puzzle id:", puzzle.id)
+    ev.target.elements.guess.value = ""
+    createGuess(guess, puzzle)
+  }
+
+  function createGuess(guess, puzzle) {
+    fetch(GUESS_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'content': guess,
+          'puzzle_id': puzzle.id
+        })
+      })
+      .then(res => res.json())
+      .then(newGuess => {
+        addGuess(newGuess)
+      })
+  }
 
   function getGuesses(puzzle) {
     console.log({
@@ -71,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createPuzzle(clue, answer, category) {
-    fetch(URL, {
+    fetch(PUZZLE_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
