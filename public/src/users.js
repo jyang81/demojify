@@ -1,24 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const URL = '/api/v1/users'
-
+  let USER
   const userForm = document.getElementById('user-form')
   const displayLogin = document.getElementById('splash')
-  let addUser = true
 
-  userForm.addEventListener('submit', makeUser
-    // addUser = !addUser
-    // if (addUser) {
-    //   displayLogin.style.display = 'block'
-    // } else {
+  userForm.addEventListener('submit', handleSubmit)
+    // if (USER) {
     //   displayLogin.style.display = 'none'
+    // } else {
+    //   displayLogin.style.display = 'block'
     // }
-  )
 
-  function makeUser(ev) {
+
+  function handleSubmit(ev) {
     ev.preventDefault()
-    console.log(ev.target.elements.username.value)
+    console.log("form input:", ev.target.elements.username.value)
     let username = ev.target.elements.username.value
+    ev.target.elements.username.value = ""
     createUser(username)
   }
 
@@ -34,7 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
       .then(res => res.json())
-      .then(user => showUser(user))
+      .then(user => {
+        addUser(user)
+        USER = user
+        window.user = USER
+        console.log("USER:", USER)
+      })
   }
 
 
@@ -42,9 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(URL)
       .then(res => res.json())
       .then(users => {
-        console.log({
-          users
-        })
         displayUsers(users)
       })
   }
@@ -52,15 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function displayUsers(users) {
     users.forEach(user => {
-      showUser(user)
+      addUser(user)
     })
   }
 
-  function showUser(user) {
-    let ul = document.getElementById('users')
+  function addUser(user) {
+    let div = document.getElementById('users')
+    let ul = document.createElement('ul')
     let li = document.createElement('li')
     li.textContent = user.username
     ul.appendChild(li)
+    div.appendChild(ul)
   }
 
   function main() {

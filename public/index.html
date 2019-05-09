@@ -20,11 +20,11 @@
 
     </div>
 
-    <div class=""> <!-- Entire site: must enter username to unlock -->
+    <div class=""> <!-- Entire site: must enter username to view -->
 
 
-    <div class="container">
-      <form class="add-puzzle-form" style="">
+    <div id="create-container">
+      <form id="add-puzzle-form" style="">
         <h3>Create an Emoji Puzzle!</h3>
 
         <input type="text" name="clue" value="" placeholder="Use emojis to make a clue" class="input-text">
@@ -33,18 +33,21 @@
         <br>
         <input type="text" name="category" value="" placeholder="Category" class="input-text">
         <br>
-        <input type="submit" name="submit" value="Submit Your Puzzle" class="submit" id="create-puzzle">
+        <input type="submit" name="submit" value="Submit Your Puzzle" class="submit">
       </form>
     </div>
     <p style='text-align:center'> 👀 <button id='new-puzzle-btn'>Create a Puzzle!</button> 👀 </p>
 
-    Userlist:
-    <ul id="users">
-    </ul>
 
-    Puzzles:
-    <ul id="puzzles">
-    </ul>
+<div id="main-container">
+
+    <div id="puzzle-collection">
+    </div>
+
+    <div id="users">
+      <h4>Userlist:</h4>
+    </div>
+</div>
 
   </div> <!-- Entire site -->
 

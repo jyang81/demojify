@@ -31,7 +31,7 @@ class Api::V1::PuzzlesController < ApplicationController
   private
 
   def puzzle_params
-    params.require(:puzzle).permit(:clue, :answer, :category)
+    params.require(:puzzle).permit(:clue, :answer, :category, :likes, :user_id)
   end
 
   def find_puzzle
