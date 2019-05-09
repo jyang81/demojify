@@ -1,0 +1,47 @@
+body {
+  background-color: white;
+}
+
+#create-container {
+  padding: 1rem;
+  width: stretch;
+  height: auto;
+  display: none;
+  background: #2196f3;
+}
+
+#puzzle-collection {
+  margin: 2rem;
+}
+
+.card {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 15rem;
+  height: 12rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px gray;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#users {
+  float: right;
+}
+
+.add-puzzle-form {
+  width: 80%
+}
+
+.input-text {
+  border-radius: 5px;
+  height: 2rem;
+  width: 70%;
+  font-size: 18px;
+  margin: 3px;
+}
