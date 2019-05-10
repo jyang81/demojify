@@ -3,6 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const PUZZLE_URL = '/api/v1/puzzles'
   const GUESS_URL = '/api/v1/guesses'
 
+  // ======== MODAL ====================================
+
+  // Get the modal
+  const modal = document.getElementById('myModal')
+  // Get the <span> element that closes the modal
+  const span = document.getElementsByClassName("close")[0];
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+// =====================================================
+
   function getPuzzles() {
     fetch(PUZZLE_URL)
       .then(res => res.json())
@@ -44,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     row.appendChild(col2)
     col2.addEventListener('click', () => {
       col2.textContent = `❤️ ${++puzzle.likes}`
+      updateLikes(puzzle)
     })
 
     innerDiv.appendChild(row)
@@ -73,7 +93,25 @@ document.addEventListener('DOMContentLoaded', () => {
       showAnswer(puzzle)
       guessBtn.style.display = "none"
     })
-    // when button clicked, it will show the answer + all the guesses and append the guess to the list
+    // when button clicked, it will show the answer + all the guesses and prepend the guess to the list
+    const row2 = document.createElement('div')
+    const editLink = document.createElement('div')
+    editLink.textContent = "📝"
+    editLink.id = "edit-link"
+    editLink.addEventListener('click', () => {
+      modal.style.display = "block";
+      editPuzzle(puzzle)
+    })
+    row2.appendChild(editLink)
+
+    const deleteLink = document.createElement('div')
+    deleteLink.textContent = "🗑"
+    deleteLink.id = "delete-link"
+    deleteLink.addEventListener('click', () => {
+      confirm("Are you sure?")
+    })
+    row2.appendChild(deleteLink)
+    innerDiv.appendChild(row2)
 
   }
 
@@ -83,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     h3.textContent = puzzle.answer
     card.appendChild(h3)
   }
+
 
 // ======= GUESSES ==================================
 
@@ -173,6 +212,66 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(puzzle => addPuzzle(puzzle))
   }
 
+// ======= ADD LIKES ============================
+
+  function updateLikes(puzzle) {
+    return fetch(PUZZLE_URL + '/' + puzzle.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'likes': puzzle.likes
+        })
+      })
+  }
+
+
+// ====== EDIT PUZZLE ===========================
+
+  function editPuzzle(puzzle) {
+    const editForm = document.getElementById('edit-puzzle-form')
+    editForm.elements.clue.value = puzzle.clue
+    editForm.elements.answer.value = puzzle.answer
+    editForm.elements.category.value = puzzle.category
+    editForm.addEventListener('submit', (ev) => {
+      handleEdit(ev, puzzle)
+    })
+  }
+
+  function handleEdit(ev, puzzle) {
+    ev.preventDefault()
+    let clue = ev.target.elements.clue.value
+    let answer = ev.target.elements.answer.value
+    let category = ev.target.elements.category.value
+    updatePuzzle(clue, answer, category, puzzle)
+  }
+
+  function updatePuzzle(clue, answer, category, puzzle) {
+    fetch(PUZZLE_URL + '/' + puzzle.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'clue': clue,
+          'answer': answer,
+          'category': category,
+          'user_id': window.user.id,
+          'likes': puzzle.likes
+        })
+      })
+      .then(res => res.json())
+      .then(puzzle => refreshPuzzle(puzzle))
+  }
+
+  function refreshPuzzle(puzzle) {
+    console.log("puzzle:", puzzle)
+  }
+
+// ======== SHOW AND HIDE CREATE FORM ===================
 
   const addBtn = document.getElementById('new-puzzle-btn')
   const puzzleContainer = document.getElementById('create-container')

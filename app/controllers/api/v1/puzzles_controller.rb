@@ -1,6 +1,6 @@
 class Api::V1::PuzzlesController < ApplicationController
 
-  before_action :find_puzzle, only: [:update]
+  before_action :find_puzzle, only: [:update, :show]
   def index
     @puzzles = Puzzle.all
     render json: @puzzles
