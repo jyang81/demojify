@@ -2,6 +2,10 @@ body {
   background-color: white;
 }
 
+.hidden {
+  display: none;
+}
+
 #create-container {
   padding: 1rem;
   width: stretch;
@@ -12,23 +16,48 @@ body {
 
 #puzzle-collection {
   margin: 2rem;
+  width: 80%;
+  display: inline-block;
 }
 
 .card {
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
-  width: 15rem;
-  height: 15rem;
+  width: 18rem;
+  min-height: 15rem;
   display: inline-grid;
   margin: 1rem 2rem;
   box-shadow: 3px 4px gray;
 }
 
-h4 {
-  margin-top: 0;
-  margin-bottom: 0;
+h1 {
+  font-size: 42pt;
+  margin: 0px;
 }
+
+h4 {
+  margin: 0;
+}
+
+#like {
+  cursor: pointer;
+  float: right;
+  text-align: right;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+
+/* .row::after { */
+  /* content: ""; */
+  /* display: table; */
+  /* clear: both; */
+/* } */
+
 
 #users {
   float: right;
