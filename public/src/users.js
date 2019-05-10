@@ -2,16 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const URL = '/api/v1/users'
   let USER
+  // const displayLogin = document.getElementById('splash')
+
   const userForm = document.getElementById('user-form')
-  const displayLogin = document.getElementById('splash')
-
-  userForm.addEventListener('submit', handleSubmit)
-    // if (USER) {
-    //   displayLogin.style.display = 'none'
-    // } else {
-    //   displayLogin.style.display = 'block'
-    // }
-
+  userForm.addEventListener('submit', (ev) => {
+    handleSubmit(ev)
+    userForm.style.display = "none"
+  })
 
   function handleSubmit(ev) {
     ev.preventDefault()

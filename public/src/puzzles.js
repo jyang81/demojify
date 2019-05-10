@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(PUZZLE_URL)
       .then(res => res.json())
       .then(puzzles => {
-        console.log({
-          puzzles
-        })
         displayPuzzles(puzzles)
       })
   }
@@ -25,29 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const innerDiv = document.createElement('div')
     innerDiv.classList.add('card')
+    innerDiv.id = puzzle.id
     outerDiv.appendChild(innerDiv)
 
     const h1 = document.createElement('h1')
     h1.textContent = puzzle.clue
     innerDiv.appendChild(h1)
 
+    const row = document.createElement('div')
+    row.classList.add('row')
+    const col = document.createElement('div')
+    col.classList.add('column')
     const h4 = document.createElement('h4')
     h4.textContent = puzzle.category
-    innerDiv.appendChild(h4)
+    col.appendChild(h4)
+    row.appendChild(col)
 
-    const p = document.createElement('p')
-    p.textContent = `♥ ${puzzle.likes}`
-    innerDiv.appendChild(p)
-    p.addEventListener('click', () => {
-      p.textContent = `♥ ${++puzzle.likes}`
+    const col2 = document.createElement('div')
+    col2.textContent = `❤️ ${puzzle.likes}`
+    col2.id = "like"
+    row.appendChild(col2)
+    col2.addEventListener('click', () => {
+      col2.textContent = `❤️ ${++puzzle.likes}`
     })
 
-    // add form field for guess
+    innerDiv.appendChild(row)
+
+    // form field for guess
     const form = document.createElement('form')
     const input = document.createElement('input')
     input.type = "text"
     input.name = "guess"
     input.placeholder = "Make a guess"
+    input.required = true
     input.style.display = "block"
     input.style.width = "15rem"
     form.appendChild(input)
@@ -63,10 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
     innerDiv.appendChild(form)
     form.addEventListener('submit', (ev) => {
       handleGuess(ev, puzzle)
+      showAnswer(puzzle)
+      guessBtn.style.display = "none"
     })
     // when button clicked, it will show the answer + all the guesses and append the guess to the list
 
   }
+
+  function showAnswer(puzzle) {
+    const card = document.getElementById(puzzle.id)
+    const h3 = document.createElement('h3')
+    h3.textContent = puzzle.answer
+    card.appendChild(h3)
+  }
+
+// ======= GUESSES ==================================
 
   function handleGuess(ev, puzzle){
     ev.preventDefault()
@@ -95,11 +113,31 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   }
 
-  function getGuesses(puzzle) {
-    console.log({
-      puzzle
+  function getGuesses() {
+    fetch(GUESS_URL)
+    .then(res => res.json())
+    .then(guesses => {
+      displayGuesses(guesses)
     })
   }
+
+  function displayGuesses(guesses) {
+    guesses.forEach(guess => {
+      addGuess(guess)
+    })
+  }
+
+  function addGuess(guess) {
+    console.log("guess:", guess)
+    const card = document.getElementById(guess.puzzle_id)
+    const div = document.createElement('div')
+    div.textContent = "Your Guess: " + guess.content
+
+    card.appendChild(div)
+
+  }
+
+// =========== MAKE A PUZZLE ===============================
 
   const puzzleForm = document.getElementById('add-puzzle-form')
   puzzleForm.addEventListener('submit', handleSubmit)
