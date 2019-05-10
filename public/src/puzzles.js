@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.placeholder = "Make a guess"
     input.required = true
     input.style.display = "block"
-    input.style.width = "15rem"
+    input.style.width = "18rem"
     form.appendChild(input)
 
     const br = document.createElement('br')
