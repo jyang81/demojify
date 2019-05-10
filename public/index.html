@@ -5,27 +5,30 @@
     <title>Demojify - Emoji Puzzles</title>
     <script src="/src/users.js" charset="utf-8"></script>
     <script src="/src/puzzles.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
   </head>
+
   <body>
-
-    <h1>Demojify</h1>
-
-    <div id="splash">
-      <form id="user-form">
-        <h3>Enter username to begin</h3>
-        <input type="text" name="username" value="" required>
-        <input type="submit" name="submit" value="Enter">
-      </form>
+    <div id="header">
+      <h1 id="title-letters">DEM<span id="title-o">🤔</span>JIFY</h1>
     </div>
 
-    <div class=""> <!-- Entire site: must enter username to view -->
+      <div id="splash">
+        <form id="user-form">
+          <span class="white-text">Enter username to begin </span>
+          <input type="text" name="username" value="" required>
+          <input type="submit" name="submit" value="Enter">
+        </form>
+        <br><br>
+      </div>
 
+  <div id="site" class="hidden"> <!-- Entire site: must enter username to view -->
     <div id="create-container">
-      <form id="add-puzzle-form" style="">
-        <h3>Create an Emoji Puzzle!</h3>
+      <form id="add-puzzle-form">
+        <h3 class="white-text">Create an Emoji Puzzle!</h3>
 
-        <input type="text" name="clue" value="" placeholder="Use emojis to make a clue" class="input-text" required>
+        <input type="text" name="clue" value="" placeholder="Use emojis to make a clue (Press Ctrl + Cmd + Space)" class="input-text" required>
         <br>
         <input type="text" name="answer" value="" placeholder="Answer" class="input-text" required>
         <br>
@@ -36,16 +39,15 @@
     </div>
     <p style='text-align:center'> <button id='new-puzzle-btn'>Create a Puzzle!</button> </p>
 
+    <div id="main-container">
 
-<div id="main-container">
+        <div id="puzzle-collection">
+        </div>
 
-    <div id="puzzle-collection">
+        <div id="users">
+          <h4>Userlist:</h4>
+        </div>
     </div>
-
-    <div id="users">
-      <h4>Userlist:</h4>
-    </div>
-</div>
 
   </div> <!-- Entire site -->
 

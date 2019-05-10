@@ -2,13 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const URL = '/api/v1/users'
   let USER
-  // const displayLogin = document.getElementById('splash')
-
+  const splash = document.getElementById('splash')
   const userForm = document.getElementById('user-form')
+  const site = document.getElementById('site')
+
   userForm.addEventListener('submit', (ev) => {
     handleSubmit(ev)
     userForm.style.display = "none"
+    site.classList.remove('hidden')
   })
+
+// fix this part! should show page and display username upon login
+
+  //
+  // let welcome = document.createElement('span')
+  // welcome.textContent = `Welcome ${username}!`
+  // splash.appendChild(welcome)
+// ^^^^^^^
 
   function handleSubmit(ev) {
     ev.preventDefault()
