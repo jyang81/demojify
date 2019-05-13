@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const author = document.createElement('div')
     author.id = "author"
-    author.textContent = `Created by: User ${puzzle.user_id}`
+    author.textContent = `Created by: ${puzzle.user.username}`
     innerDiv.appendChild(author)
 
     // when button clicked, it will show the answer + all the guesses and prepend the guess to the list
@@ -139,29 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     h3.textContent = puzzle.answer
     card.appendChild(h3)
   }
-
-  // ======== ADD USERNAME TO CARD ===============================
-
-  // function getUsers() {
-  //   fetch(URL)
-  //     .then(res => res.json())
-  //     .then(users => {
-  //       displayUsers(users)
-  //     })
-  // }
-  // //
-  // function displayUsers(users) {
-  //   users.forEach(user => {
-  //     addUser(user)
-  //   })
-  // }
-  //
-  // function addUser(user) {
-  //   if (user.id === puzzle.user_id) {
-  //     author.textContent = `Created by: ${user.username}`
-  //   }
-  // }
-  //
 
 // ======= GUESSES ==================================
 
