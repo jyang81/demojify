@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const row2 = document.createElement('div')
     const editLink = document.createElement('div')
     editLink.textContent = "📝"
+    editLink.title = "Edit Puzzle"
     editLink.id = "edit-link"
     editLink.addEventListener('click', () => {
       modal.style.display = "block";
@@ -120,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const deleteLink = document.createElement('div')
     deleteLink.textContent = "🗑"
+    deleteLink.title = "Delete Puzzle"
     deleteLink.id = "delete-link"
     deleteLink.addEventListener('click', () => {
       let result = confirm("Are you sure you want to delete this puzzle?");
