@@ -79,12 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
     input.style.width = "18rem"
     form.appendChild(input)
 
-    const br = document.createElement('br')
-    form.appendChild(br)
+    // const br = document.createElement('br')
+    // form.appendChild(br)
 
     const guessBtn = document.createElement('input')
     guessBtn.type = "submit"
     guessBtn.value = "See Answer"
+    guessBtn.style["margin-top"] = "10px"
     form.appendChild(guessBtn)
 
     innerDiv.appendChild(form)
@@ -179,7 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========== MAKE A PUZZLE ===============================
 
   const puzzleForm = document.getElementById('add-puzzle-form')
-  puzzleForm.addEventListener('submit', handleSubmit)
+  puzzleForm.addEventListener('submit', (ev) => {
+    handleSubmit(ev)
+    puzzleContainer.style.display = 'none'
+  })
 
   function handleSubmit(ev) {
     ev.preventDefault()
@@ -237,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editForm.elements.category.value = puzzle.category
     editForm.addEventListener('submit', (ev) => {
       handleEdit(ev, puzzle)
+      modal.style.display = "none";
     })
   }
 

@@ -10,9 +10,9 @@ body {
 #header {
   display: flex;
   justify-content: center;
+  height: 5rem;
+  padding: 2rem;
   background: #2196f3;
-  height: 7rem;
-  padding: 1rem;
 }
 
 #title-letters {
@@ -28,34 +28,40 @@ body {
 #splash {
   text-align: center;
   background: #2196f3;
+  padding-bottom: 2rem;
+  color: white;
 }
 
 #create-container {
   padding: 1rem;
-  width: stretch;
   height: auto;
   display: none;
   background: #2196f3;
 }
 
+#add-puzzle-form {
+  text-align: center;
+}
+
 #puzzle-collection {
-  margin: 2rem;
-  width: 80%;
+  margin: auto;
+  width: 100%;
   display: inline-block;
+  text-align: center;
 }
 
 #users {
   float: right;
-  width: 15%;
+  width: 10%;
   background: azure;
 }
 
 .card {
   text-align: center;
-  /* border: grey solid 1px; */
+  border-top: #2196f3 solid 10px;
   padding: 1rem;
   width: 18rem;
-  min-height: 15rem;
+  min-height: 18rem;
   display: inline-grid;
   margin: 1rem 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
@@ -72,6 +78,10 @@ h4 {
 
 .white-text {
   color: white;
+}
+
+.yellow-text {
+  color: rgb(255,195,50);
 }
 
 #like {
@@ -126,7 +136,7 @@ h4 {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
 }
 
 /* The Close Button */
@@ -149,7 +159,3 @@ h4 {
 /* display: table; */
 /* clear: both; */
 /* } */
-
-/* .add-puzzle-form {
-width: 80%
-} */
