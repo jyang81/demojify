@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
   //     .then(users => {
   //       displayUsers(users)
   //     })
-  // }
-  //
-  //
+  // // }
+  // //
+  // //
   // function displayUsers(users) {
   //   users.forEach(user => {
   //     addUser(user)

@@ -1,6 +1,6 @@
 class Api::V1::PuzzlesController < ApplicationController
 
-  before_action :find_puzzle, only: [:update, :show]
+  before_action :find_puzzle, only: [:update, :show, :destroy]
   def index
     @puzzles = Puzzle.all
     render json: @puzzles
@@ -27,6 +27,10 @@ class Api::V1::PuzzlesController < ApplicationController
       render json: { errors: @puzzle.errors.full_messages }, status: :unprocessible_entity
     end
   end
+
+  def destroy
+      @puzzle.destroy
+    end
 
   private
 
