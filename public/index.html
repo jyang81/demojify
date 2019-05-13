@@ -2,21 +2,74 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Demojify - Emojigrams</title>
-    <script src="/src/main.js" charset="utf-8"></script>
-    <script src="/src/puzzle.js" charset="utf-8"></script>
+    <title>Demojify - Emoji Puzzles</title>
+    <script src="/src/users.js" charset="utf-8"></script>
+    <script src="/src/puzzles.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
+
   <body>
+    <div id="header">
+      <h1 id="title-letters">DEM<span id="title-o">🤔</span>JIFY</h1>
+    </div>
 
-    <h1>Demojify</h1>
+      <div id="splash">
+        <form id="user-form">
+          <span class="white-text">Enter username to begin </span>
+          <input type="text" name="username" value="" required>
+          <input type="submit" name="submit" value="Enter">
+        </form>
+      </div>
 
-    Userlist:
-    <ul id="users">
-    </ul>
+  <div id="site" class="hidden"> <!-- Entire site: must enter username to view -->
+    <div id="create-container">
+      <form id="add-puzzle-form">
+        <h2 class="yellow-text">Create an Emoji Puzzle!</h2>
 
-    Puzzles:
-    <ul id="puzzles">
-    </ul>
+        <input type="text" name="clue" value="" placeholder="Use emojis to make a clue (Press Ctrl + Cmd + Space)" class="input-text" required>
+        <br>
+        <input type="text" name="answer" value="" placeholder="Answer" class="input-text" required>
+        <br>
+        <input type="text" name="category" value="" placeholder="Category" class="input-text" required>
+        <br><br>
+        <input type="submit" name="submit" value="Submit Your Puzzle" class="submit">
+      </form>
+    </div>
+    <p style='text-align:center'> <button id='new-puzzle-btn'>Create a Puzzle!</button> </p>
+
+    <!-- <div id="main-container"> -->
+
+        <div id="puzzle-collection">
+        </div>
+
+        <!-- <div id="users">
+          <h4>Userlist:</h4>
+        </div>
+    </div> -->
+
+  </div> <!-- Entire site -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id="edit-puzzle-form">
+      <h3>Edit Emoji Puzzle</h3>
+
+      <input type="text" name="clue" value="" placeholder="Use emojis to make a clue (Press Ctrl + Cmd + Space)" class="input-text" required>
+      <br>
+      <input type="text" name="answer" value="" placeholder="Answer" class="input-text" required>
+      <br>
+      <input type="text" name="category" value="" placeholder="Category" class="input-text" required>
+      <br><br>
+      <input type="submit" name="submit" value="Edit Your Puzzle" class="submit">
+    </form>
+  </div>
+
+</div>
 
   </body>
 </html>
