@@ -12,14 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     site.classList.remove('hidden')
   })
 
-// fix this part! should show page and display username upon login
-
-  //
-  // let welcome = document.createElement('span')
-  // welcome.textContent = `Welcome ${username}!`
-  // splash.appendChild(welcome)
-// ^^^^^^^
-
   function handleSubmit(ev) {
     ev.preventDefault()
     console.log("form input:", ev.target.elements.username.value)
@@ -41,42 +33,44 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(res => res.json())
       .then(user => {
-        addUser(user)
+        // addUser(user)
         USER = user
         window.user = USER
         console.log("USER:", USER)
+        const h4 = document.createElement('h4')
+        h4.textContent = `Welcome ${USER.username}!`
+        splash.appendChild(h4)
       })
   }
 
+  // function getUsers() {
+  //   fetch(URL)
+  //     .then(res => res.json())
+  //     .then(users => {
+  //       displayUsers(users)
+  //     })
+  // // }
+  // //
+  // //
+  // function displayUsers(users) {
+  //   users.forEach(user => {
+  //     addUser(user)
+  //   })
+  // }
 
-  function getUsers() {
-    fetch(URL)
-      .then(res => res.json())
-      .then(users => {
-        displayUsers(users)
-      })
-  }
+  // function addUser(user) {
+  //   let div = document.getElementById('users')
+  //   let ul = document.createElement('ul')
+  //   let li = document.createElement('li')
+  //   li.textContent = user.username
+  //   ul.appendChild(li)
+  //   div.appendChild(ul)
+  // }
 
-
-  function displayUsers(users) {
-    users.forEach(user => {
-      addUser(user)
-    })
-  }
-
-  function addUser(user) {
-    let div = document.getElementById('users')
-    let ul = document.createElement('ul')
-    let li = document.createElement('li')
-    li.textContent = user.username
-    ul.appendChild(li)
-    div.appendChild(ul)
-  }
-
-  function main() {
-    getUsers()
-  }
-
-  main()
+  // function main() {
+  //   getUsers()
+  // }
+  //
+  // main()
 
 });

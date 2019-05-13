@@ -1,7 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  const URL = '/api/v1/users'
   const PUZZLE_URL = '/api/v1/puzzles'
   const GUESS_URL = '/api/v1/guesses'
+
+  // ======== MODAL ====================================
+
+  // Get the modal
+  const modal = document.getElementById('myModal')
+  // Get the <span> element that closes the modal
+  const span = document.getElementsByClassName("close")[0];
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+// =====================================================
 
   function getPuzzles() {
     fetch(PUZZLE_URL)
@@ -35,6 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     col.classList.add('column')
     const h4 = document.createElement('h4')
     h4.textContent = puzzle.category
+    const catSpan = document.createElement('span')
+    catSpan.textContent = "Category:"
+    catSpan.id = "category"
+    h4.prepend(catSpan)
+    const br = document.createElement('br')
+    catSpan.appendChild(br)
     col.appendChild(h4)
     row.appendChild(col)
 
@@ -44,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     row.appendChild(col2)
     col2.addEventListener('click', () => {
       col2.textContent = `❤️ ${++puzzle.likes}`
+      updateLikes(puzzle)
     })
 
     innerDiv.appendChild(row)
@@ -59,21 +86,50 @@ document.addEventListener('DOMContentLoaded', () => {
     input.style.width = "18rem"
     form.appendChild(input)
 
-    const br = document.createElement('br')
-    form.appendChild(br)
+    // const br = document.createElement('br')
+    // form.appendChild(br)
 
     const guessBtn = document.createElement('input')
     guessBtn.type = "submit"
     guessBtn.value = "See Answer"
+    guessBtn.style["margin-top"] = "10px"
     form.appendChild(guessBtn)
 
     innerDiv.appendChild(form)
     form.addEventListener('submit', (ev) => {
       handleGuess(ev, puzzle)
       showAnswer(puzzle)
-      guessBtn.style.display = "none"
+      form.style.display = "none"
     })
-    // when button clicked, it will show the answer + all the guesses and append the guess to the list
+
+    const author = document.createElement('div')
+    author.id = "author"
+    author.textContent = `Created by: User ${puzzle.user_id}`
+    innerDiv.appendChild(author)
+
+    // when button clicked, it will show the answer + all the guesses and prepend the guess to the list
+    const row2 = document.createElement('div')
+    const editLink = document.createElement('div')
+    editLink.textContent = "📝"
+    editLink.id = "edit-link"
+    editLink.addEventListener('click', () => {
+      modal.style.display = "block";
+      editPuzzle(puzzle)
+    })
+    row2.appendChild(editLink)
+
+    const deleteLink = document.createElement('div')
+    deleteLink.textContent = "🗑"
+    deleteLink.id = "delete-link"
+    deleteLink.addEventListener('click', () => {
+      let result = confirm("Are you sure you want to delete this puzzle?");
+      if (result) {
+        innerDiv.remove()
+        deletePuzzle(puzzle)
+      }
+    })
+    row2.appendChild(deleteLink)
+    innerDiv.appendChild(row2)
 
   }
 
@@ -83,6 +139,29 @@ document.addEventListener('DOMContentLoaded', () => {
     h3.textContent = puzzle.answer
     card.appendChild(h3)
   }
+
+  // ======== ADD USERNAME TO CARD ===============================
+
+  // function getUsers() {
+  //   fetch(URL)
+  //     .then(res => res.json())
+  //     .then(users => {
+  //       displayUsers(users)
+  //     })
+  // }
+  // //
+  // function displayUsers(users) {
+  //   users.forEach(user => {
+  //     addUser(user)
+  //   })
+  // }
+  //
+  // function addUser(user) {
+  //   if (user.id === puzzle.user_id) {
+  //     author.textContent = `Created by: ${user.username}`
+  //   }
+  // }
+  //
 
 // ======= GUESSES ==================================
 
@@ -140,7 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========== MAKE A PUZZLE ===============================
 
   const puzzleForm = document.getElementById('add-puzzle-form')
-  puzzleForm.addEventListener('submit', handleSubmit)
+  puzzleForm.addEventListener('submit', (ev) => {
+    handleSubmit(ev)
+    puzzleContainer.style.display = 'none'
+  })
 
   function handleSubmit(ev) {
     ev.preventDefault()
@@ -173,6 +255,80 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(puzzle => addPuzzle(puzzle))
   }
 
+// ======= ADD LIKES ============================
+
+  function updateLikes(puzzle) {
+    return fetch(PUZZLE_URL + '/' + puzzle.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'likes': puzzle.likes
+        })
+      })
+  }
+
+
+// ====== EDIT PUZZLE ===========================
+
+  function editPuzzle(puzzle) {
+    const editForm = document.getElementById('edit-puzzle-form')
+    editForm.elements.clue.value = puzzle.clue
+    editForm.elements.answer.value = puzzle.answer
+    editForm.elements.category.value = puzzle.category
+    editForm.addEventListener('submit', (ev) => {
+      handleEdit(ev, puzzle)
+      modal.style.display = "none";
+    })
+  }
+
+  function handleEdit(ev, puzzle) {
+    ev.preventDefault()
+    let clue = ev.target.elements.clue.value
+    let answer = ev.target.elements.answer.value
+    let category = ev.target.elements.category.value
+    updatePuzzle(clue, answer, category, puzzle)
+  }
+
+  function updatePuzzle(clue, answer, category, puzzle) {
+    fetch(PUZZLE_URL + '/' + puzzle.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'clue': clue,
+          'answer': answer,
+          'category': category,
+          'user_id': window.user.id,
+          'likes': puzzle.likes
+        })
+      })
+      .then(res => res.json())
+      .then(updatedPuzzle => {
+        refreshPuzzle(updatedPuzzle)
+      })
+  }
+
+  function refreshPuzzle(puzzle) {
+    const card = document.getElementById(puzzle.id)
+    card.firstChild.textContent = puzzle.clue;
+    card.childNodes[1].firstChild.firstChild.childNodes[1].textContent = puzzle.category;
+    card.childNodes[5].textContent = puzzle.answer
+  }
+
+// ======== DELETE PUZZLE ===============================
+
+function deletePuzzle(puzzle) {
+  return fetch(PUZZLE_URL + '/' + puzzle.id, {
+      method: 'DELETE'
+    })
+  }
+
+// ======== SHOW AND HIDE CREATE FORM ===================
 
   const addBtn = document.getElementById('new-puzzle-btn')
   const puzzleContainer = document.getElementById('create-container')

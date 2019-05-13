@@ -20,13 +20,12 @@
           <input type="text" name="username" value="" required>
           <input type="submit" name="submit" value="Enter">
         </form>
-        <br><br>
       </div>
 
   <div id="site" class="hidden"> <!-- Entire site: must enter username to view -->
     <div id="create-container">
       <form id="add-puzzle-form">
-        <h3 class="white-text">Create an Emoji Puzzle!</h3>
+        <h2 class="yellow-text">Create an Emoji Puzzle!</h2>
 
         <input type="text" name="clue" value="" placeholder="Use emojis to make a clue (Press Ctrl + Cmd + Space)" class="input-text" required>
         <br>
@@ -39,17 +38,38 @@
     </div>
     <p style='text-align:center'> <button id='new-puzzle-btn'>Create a Puzzle!</button> </p>
 
-    <div id="main-container">
+    <!-- <div id="main-container"> -->
 
         <div id="puzzle-collection">
         </div>
 
-        <div id="users">
+        <!-- <div id="users">
           <h4>Userlist:</h4>
         </div>
-    </div>
+    </div> -->
 
   </div> <!-- Entire site -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id="edit-puzzle-form">
+      <h3>Edit Emoji Puzzle</h3>
+
+      <input type="text" name="clue" value="" placeholder="Use emojis to make a clue (Press Ctrl + Cmd + Space)" class="input-text" required>
+      <br>
+      <input type="text" name="answer" value="" placeholder="Answer" class="input-text" required>
+      <br>
+      <input type="text" name="category" value="" placeholder="Category" class="input-text" required>
+      <br><br>
+      <input type="submit" name="submit" value="Edit Your Puzzle" class="submit">
+    </form>
+  </div>
+
+</div>
 
   </body>
 </html>
