@@ -2,6 +2,7 @@
 
 A single page app of emoji puzzles
 
+![Demojify Screenshot](public/screenshot-demojify.png)
 
 A puzzle will have a clue, an answer, and a category
 
@@ -32,7 +33,10 @@ A user will be able to:
 * Make a guess on a puzzle
 
 #### Stretch goals identified:
-give a puzzle a rating (1-5)
+- sort/filter puzzles
+- update auth for puzzle edit/delete
+- display all guesses per puzzle
+- emoji picker (like Slack)
 
 #### Rough idea/draft of schema:
 
