@@ -29,8 +29,8 @@ class Api::V1::PuzzlesController < ApplicationController
   end
 
   def destroy
-      @puzzle.destroy
-    end
+    @puzzle.destroy
+  end
 
   private
 
