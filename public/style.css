@@ -43,6 +43,15 @@ body {
   text-align: center;
 }
 
+#new-puzzle-btn {
+  height: 35px;
+  font-size: medium;
+  color: white;
+  background-color: rgb(211, 12, 12);
+  border-radius: 5px;
+  padding: 0 15px;
+}
+
 #puzzle-collection {
   margin: auto;
   width: 100%;
