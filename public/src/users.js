@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleSubmit(ev) {
     ev.preventDefault()
-    console.log("form input:", ev.target.elements.username.value)
+    // console.log("form input:", ev.target.elements.username.value)
     let username = ev.target.elements.username.value
     ev.target.elements.username.value = ""
     createUser(username)
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // addUser(user)
         USER = user
         window.user = USER
-        console.log("USER:", USER)
+        // console.log("USER:", USER)
         const h4 = document.createElement('h4')
         h4.textContent = `Welcome ${USER.username}!`
         splash.appendChild(h4)

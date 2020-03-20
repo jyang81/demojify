@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleGuess(ev, puzzle){
     ev.preventDefault()
-    console.log("guess:", ev.target.elements.guess.value)
+    // console.log("guess:", ev.target.elements.guess.value)
     let guess = ev.target.elements.guess.value
-    console.log("puzzle id:", puzzle.id)
+    // console.log("puzzle id:", puzzle.id)
     ev.target.elements.guess.value = ""
     createGuess(guess, puzzle)
   }
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addGuess(guess) {
-    console.log("guess:", guess)
+    // console.log("guess:", guess)
     const card = document.getElementById(guess.puzzle_id)
     const div = document.createElement('div')
     div.textContent = "Your Guess: " + guess.content
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleSubmit(ev) {
     ev.preventDefault()
-    console.log(ev.target.elements)
+    // console.log(ev.target.elements)
     let clue = ev.target.elements.clue.value
     let answer = ev.target.elements.answer.value
     let category = ev.target.elements.category.value
